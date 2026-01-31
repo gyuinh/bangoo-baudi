@@ -24,7 +24,6 @@
 <body>
 
 <div id="terminal"></div>
-<p>> <span class="cursor">█</span></p>
 
 <script>
   const lines = [
@@ -57,23 +56,35 @@
   ];
 
   const terminal = document.getElementById("terminal");
-  let lineIndex = 0;
-  let charIndex = 0;
-  let currentLine = document.createElement("p");
+  let line = 0;
+  let char = 0;
 
-  terminal.appendChild(currentLine);
+  function type() {
+    if (line >= lines.length) return;
 
-  function typeLetter() {
-    if (lineIndex >= lines.length) return;
+    if (char === 0) {
+      const p = document.createElement("p");
+      p.id = "line-" + line;
+      terminal.appendChild(p);
+    }
 
-    if (charIndex < lines[lineIndex].length) {
-      currentLine.textContent += lines[lineIndex][charIndex];
-      charIndex++;
-      setTimeout(typeLetter, 40); // typing speed
+    const current = document.getElementById("line-" + line);
+
+    if (char < lines[line].length) {
+      current.textContent += lines[line].charAt(char);
+      char++;
+      setTimeout(type, 35); // LETTER speed
     } else {
-      // move to next line
-      charIndex = 0;
-      lineIndex++;
-      currentLine = document.createElement("p");
-      terminal.appendChild(currentLine);
-      setTimeout(typeLetter,
+      char = 0;
+      line++;
+      setTimeout(type, 400); // pause between lines
+    }
+  }
+
+  type();
+</script>
+
+<p>> <span class="cursor">█</span></p>
+
+</body>
+</html>
