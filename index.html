@@ -20,45 +20,54 @@
 </head>
 <body>
 
-<p>> booting relationship.exe</p>
-<p>> loading memories...</p>
-<p>> loading inside jokes...</p>
-<p>> loading emotional support module...</p>
-<p>> emotional support module: FOUND (you)</p>
-
-<br>
-
-<p>> running stability_check()</p>
-<p>> result: somehow still works even when i’m dramatic</p>
-
-<br>
-
-<p>> dependency_report:</p>
-<p>• patience: you</p>
-<p>• loyalty: you</p>
-<p>• calm_when_i_overthink: also you</p>
-
-<br>
-
-<p>> note_from_developer:</p>
-<p>thank you for staying.</p>
-<p>for listening. for choosing me.</p>
-<p>for being on my side even when i’m not very easy to debug.</p>
-
-<br>
-
-<p>> system_status:</p>
-<p>life is louder, warmer, and better with you in it.</p>
-
-<br>
-
-<p>> next_update:</p>
-<p>more laughs. more memories. more us.</p>
-
-<br>
-
-<p>> end_process()</p>
+<div id="terminal"></div>
 <p>> _<span class="cursor">█</span></p>
+
+<script>
+  const lines = [
+    "> booting relationship.exe",
+    "> loading memories...",
+    "> loading inside jokes...",
+    "> loading emotional support module...",
+    "> emotional support module: FOUND (you)",
+    "",
+    "> running stability_check()",
+    "> result: somehow still works even when i’m dramatic",
+    "",
+    "> dependency_report:",
+    "• patience: you",
+    "• loyalty: you",
+    "• calm_when_i_overthink: also you",
+    "",
+    "> note_from_developer:",
+    "thank you for staying.",
+    "for listening. for choosing me.",
+    "for being on my side even when i’m not very easy to debug.",
+    "",
+    "> system_status:",
+    "life is louder, warmer, and better with you in it.",
+    "",
+    "> next_update:",
+    "more laughs. more memories. more us.",
+    "",
+    "> end_process()"
+  ];
+
+  const terminal = document.getElementById("terminal");
+  let index = 0;
+
+  function printLine() {
+    if (index < lines.length) {
+      const line = document.createElement("p");
+      line.textContent = lines[index];
+      terminal.appendChild(line);
+      index++;
+      setTimeout(printLine, 500); // speed (ms)
+    }
+  }
+
+  printLine();
+</script>
 
 </body>
 </html>
