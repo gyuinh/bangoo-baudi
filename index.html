@@ -10,9 +10,12 @@
       padding: 40px;
       line-height: 1.6;
     }
+
     .cursor {
+      display: inline-block;
       animation: blink 1s infinite;
     }
+
     @keyframes blink {
       50% { opacity: 0; }
     }
@@ -21,7 +24,7 @@
 <body>
 
 <div id="terminal"></div>
-<p>> _<span class="cursor">█</span></p>
+<p>> <span class="cursor">█</span></p>
 
 <script>
   const lines = [
@@ -54,20 +57,23 @@
   ];
 
   const terminal = document.getElementById("terminal");
-  let index = 0;
+  let lineIndex = 0;
+  let charIndex = 0;
+  let currentLine = document.createElement("p");
 
-  function printLine() {
-    if (index < lines.length) {
-      const line = document.createElement("p");
-      line.textContent = lines[index];
-      terminal.appendChild(line);
-      index++;
-      setTimeout(printLine, 500); // speed (ms)
-    }
-  }
+  terminal.appendChild(currentLine);
 
-  printLine();
-</script>
+  function typeLetter() {
+    if (lineIndex >= lines.length) return;
 
-</body>
-</html>
+    if (charIndex < lines[lineIndex].length) {
+      currentLine.textContent += lines[lineIndex][charIndex];
+      charIndex++;
+      setTimeout(typeLetter, 40); // typing speed
+    } else {
+      // move to next line
+      charIndex = 0;
+      lineIndex++;
+      currentLine = document.createElement("p");
+      terminal.appendChild(currentLine);
+      setTimeout(typeLetter,
